@@ -8,11 +8,11 @@ if [ `kubectl get ns -o jsonpath='{.items[?(@.status.phase=="Terminating")].meta
     sed -i '.bk' '/finalizers/{N;s/\n.*//;}' /var/tmp/$ns-ns.json$$
     printf "Cleaning up $ns namespace ...\n"
     curl --silent --show-error -X PUT \
-      --data-binary @/var/tmp/$ns-ns.json$$ http://localhost:8080/api/v1/namespaces/$ns/finalize \
+      --data @/var/tmp/$ns-ns.json$$ http://localhost:8080/api/v1/namespaces/$ns/finalize \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $TOKEN"   \
       --output /dev/null
-    rm /var/tmp/$ns-ns.json$$
+    rm /var/tmp/$ns-ns.json$$ /var/tmp/$ns-ns.json$$.bk
     done
   else
     printf "No namespaces in \"Terminating\" status.\n"
