@@ -1,7 +1,9 @@
 # delete-terminating-namespace
 Script to delete kubernetes namespaces that are stuck in a never-ending "Terminating" status
 
-Ensure that you can authenticate to the kubernetes cluster as a cluster admin. This will need you to have the appropriate kube config setup etc.
+## Pre-requisites
+* Ensure that you can authenticate to the kubernetes cluster as a cluster admin. This will need you to have the appropriate kube config setup etc.
+* Ensure that you are in the `default` namespace & the `default` service account is a `cluster-admin`. (you can temporarily add the role & remove it after you finish running this script)
 ```
  anoopkumar »» kubectl get ns                                                                                            
 NAME              STATUS        AGE
